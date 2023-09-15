@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-
-const linkRegex = /https?:\/\/.*\.?/;
+const { linkRegex } = require('../utils');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -13,6 +12,10 @@ const movieSchema = new mongoose.Schema({
   },
   duration: {
     type: Number,
+    required: true,
+  },
+  year: {
+    type: String,
     required: true,
   },
   description: {
