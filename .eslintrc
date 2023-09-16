@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended", "prettier"],
+  "extends": ["airbnb-base"],
   "rules": {
     "no-underscore-dangle": [
       "error",
@@ -7,11 +7,5 @@
         "allow": ["_id"]
       }
     ]
-  },
-  "parserOptions": {
-    "ecmaVersion": "latest"
-  },
-  "env": {
-    "node": true
   }
 }

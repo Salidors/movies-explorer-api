@@ -1,8 +1,8 @@
 const express = require('express');
 
+const { errors } = require('celebrate');
 const rateLimit = require('./configs/rate-limit');
 const helmet = require('./configs/helmet');
-const { errors } = require('celebrate');
 
 const cors = require('./middlewares/cors');
 const { errorLogger, requestLogger } = require('./middlewares/logger');

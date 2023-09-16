@@ -35,33 +35,28 @@ const signin = (req, res, next) => {
     });
 };
 
-const getUser = (req, res, next) =>
-  User.findById(req.user._id)
-    .then(({ email, name }) => res.send({ email, name }))
-    .catch(() => {
-      const err = new InternalServerError(
-        'Не удалось загрузить данные пользователя',
-      );
-      return next(err);
-    });
+const getUser = (req, res, next) => User.findById(req.user._id)
+  .then(({ email, name }) => res.send({ email, name }))
+  .catch(() => {
+    const err = new InternalServerError(
+      'Не удалось загрузить данные пользователя',
+    );
+    return next(err);
+  });
 
 const signup = (req, res, next) => {
   const { email, name, password } = req.body;
   bcrypt
     .hash(password, 10)
-    .then((hash) =>
-      User.create({
-        email,
-        name,
-        password: hash,
-      }),
-    )
-    .then(({ _doc }) =>
-      res.send({
-        name: _doc.name,
-        email: _doc.email,
-      }),
-    )
+    .then((hash) => User.create({
+      email,
+      name,
+      password: hash,
+    }))
+    .then(({ _doc }) => res.send({
+      name: _doc.name,
+      email: _doc.email,
+    }))
     .catch((e) => {
       let err;
       if (e.name === 'ValidationError') {
@@ -76,11 +71,10 @@ const signup = (req, res, next) => {
 };
 
 const patchUser = (req, res, next) => {
-  const { email, name } = req.body;
   const id = req.user._id;
   User.findByIdAndUpdate(
     id,
-    { email, name },
+    { ...req.body },
     { new: true, runValidators: true },
   )
     .orFail()
