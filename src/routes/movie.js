@@ -3,7 +3,7 @@ const Joi = require('joi');
 const router = require('express').Router();
 const { linkRegex } = require('../utils');
 
-const { postMovies, getMovies, deleteMovie } = require('../controllers/movie');
+const { postMovie, getMovies, deleteMovie } = require('../controllers/movie');
 
 router.get('/users', getMovies);
 router.post(
@@ -13,7 +13,7 @@ router.post(
       country: Joi.string().required(),
       director: Joi.string().required(),
       duration: Joi.number().required(),
-      year: Joi.string().string(),
+      year: Joi.string().required(),
       description: Joi.string().required(),
       image: Joi.string().pattern(linkRegex).required(),
       trailer: Joi.string().pattern(linkRegex).required(),
@@ -23,7 +23,7 @@ router.post(
       movieId: Joi.number().required(),
     }),
   }),
-  postMovies,
+  postMovie,
 );
 
 router.delete('/movie/:id', deleteMovie);

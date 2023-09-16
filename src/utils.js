@@ -1,3 +1,5 @@
 const linkRegex = /https?:\/\/.*\.?/;
 
-module.exports = { linkRegex };
+const jwtSecret = process.env.JWT_SECRET || 'some-secret-key';
+
+module.exports = { linkRegex, jwtSecret };
