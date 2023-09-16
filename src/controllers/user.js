@@ -5,7 +5,7 @@ const UnauthorizedError = require('../errors/unauthorized-err');
 const BadRequestError = require('../errors/bad-request-err');
 const InternalServerError = require('../errors/internal-server-err');
 const ConflictError = require('../errors/conflict-err');
-const { jwtSecret } = require('../utils');
+const { JWT_SECRET } = require('../configs/env');
 
 const User = require('../models/user');
 
@@ -23,7 +23,7 @@ const signin = (req, res, next) => {
       if (!matched) {
         return next(error);
       }
-      const token = jwt.sign({ _id: user._id }, jwtSecret, {
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
         expiresIn: '1w',
       });
 
