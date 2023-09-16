@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const rateLimit = require('./configs/rate-limit');
+const helmet = require('./configs/helmet');
 
 const { celebrate, Segments, errors } = require('celebrate');
 const Joi = require('joi');
@@ -12,6 +13,7 @@ const { errorLogger, requestLogger } = require('./middlewares/logger');
 const app = express();
 app.use(requestLogger);
 app.use(rateLimit);
+app.use(helmet);
 app.use(
   cors({
     origin: [
