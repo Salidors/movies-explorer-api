@@ -37,7 +37,7 @@ const signin = (req, res, next) => {
 
 const getUser = (req, res, next) =>
   User.findById(req.user._id)
-    .then((user) => res.send(user))
+    .then(({ email, name }) => res.send({ email, name }))
     .catch(() => {
       const err = new InternalServerError(
         'Не удалось загрузить данные пользователя',
@@ -76,11 +76,15 @@ const signup = (req, res, next) => {
 };
 
 const patchUser = (req, res, next) => {
-  const { name } = req.body;
+  const { email, name } = req.body;
   const id = req.user._id;
-  User.findByIdAndUpdate(id, { name }, { new: true, runValidators: true })
+  User.findByIdAndUpdate(
+    id,
+    { email, name },
+    { new: true, runValidators: true },
+  )
     .orFail()
-    .then((user) => res.send(user))
+    .then(({ email, name }) => res.send({ email, name }))
     .catch((e) => {
       let err;
       if (e.name === 'DocumentNotFoundError') {
