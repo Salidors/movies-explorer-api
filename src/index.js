@@ -1,34 +1,27 @@
 const express = require('express');
-const cors = require('cors');
+
 const rateLimit = require('./configs/rate-limit');
 const helmet = require('./configs/helmet');
+
+const cors = require('./middlewares/cors');
+const { errorLogger, requestLogger } = require('./middlewares/logger');
+const auth = require('./middlewares/auth');
 
 const { celebrate, Segments, errors } = require('celebrate');
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
 const NotFoundError = require('./errors/not-found-err');
-const { errorLogger, requestLogger } = require('./middlewares/logger');
 
 const app = express();
 app.use(requestLogger);
 app.use(rateLimit);
 app.use(helmet);
-app.use(
-  cors({
-    origin: [
-      'https://api.arcana.nomoredomainsicu.ru',
-      'https://arcana.nomoredomainsicu.ru',
-      'http://localhost:3000',
-    ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  }),
-);
+app.use(cors);
 
 const port = 3000;
 
 const { signin, signup } = require('./controllers/user');
-const auth = require('./middlewares/auth');
 const userRouter = require('./routes/user');
 const movieRouter = require('./routes/movie');
 
