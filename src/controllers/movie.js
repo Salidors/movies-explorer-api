@@ -40,7 +40,7 @@ const deleteMovie = (req, res, next) =>
       }
       return Movie.findByIdAndRemove(req.params.id);
     })
-    .then(() => res.send({ message: 'Фильм удалена' }))
+    .then(() => res.send({ message: 'Фильм удален' }))
     .catch((e) => {
       let err;
       if (e.name === 'DocumentNotFoundError') {
