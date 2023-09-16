@@ -85,6 +85,8 @@ const patchUser = (req, res, next) => {
         err = new NotFoundError('Пользователь не найден');
       } else if (e.name === 'ValidationError') {
         err = new BadRequestError(e.message);
+      } else if (e.code === 11000) {
+        err = new ConflictError('Почтовый адрес уже занят');
       } else if (e.name === 'CastError') {
         err = new BadRequestError('Неверный идентификатор пользователя');
       } else {
