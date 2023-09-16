@@ -15,5 +15,5 @@
 **GH-репозиторий**
 [ссылка на репозиторий](https://github.com/Salidors/movies-explorer-api)
 
-**htpps сервис**
+**https сервис**
 [ссылка на сервис](https://api.arcana.nomoredomainsicu.ru/)
