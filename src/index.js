@@ -24,7 +24,7 @@ app.use(
 const port = 3000;
 
 const { signin, signup } = require('./controllers/user');
-// const auth = require('./middlewares/auth');
+const auth = require('./middlewares/auth');
 const userRouter = require('./routes/user');
 const movieRouter = require('./routes/movie');
 
@@ -59,7 +59,7 @@ app.post(
   signup,
 );
 
-// app.use(auth);
+app.use(auth);
 
 app.use(userRouter);
 app.use(movieRouter);
