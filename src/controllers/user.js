@@ -6,6 +6,8 @@ const BadRequestError = require('../errors/bad-request-err');
 const InternalServerError = require('../errors/internal-server-err');
 const ConflictError = require('../errors/conflict-err');
 const { JWT_SECRET } = require('../configs/env');
+const jwtCookie = require('../configs/jwt-cookie');
+const { JWT_COOKIE_NAME } = require('../configs/constants');
 
 const User = require('../models/user');
 
@@ -26,8 +28,8 @@ const signin = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
         expiresIn: '1w',
       });
-
-      return res.send({ token });
+      res.cookie(JWT_COOKIE_NAME, token, jwtCookie);
+      return res.send({ message: 'Пользователь авторизован' });
     })
     .catch((e) => {
       const err = new InternalServerError(e.message);
@@ -98,9 +100,20 @@ const patchUser = (req, res, next) => {
     });
 };
 
+const signout = (req, res, next) => {
+  const token = req.cookies.jwt;
+
+  if (!token) {
+    next(new UnauthorizedError('Токен не найден'));
+  } else {
+    res.clearCookie(JWT_COOKIE_NAME).send({ message: 'Токен удален' });
+  }
+};
+
 module.exports = {
   patchUser,
   signin,
   signup,
   getUser,
+  signout,
 };

@@ -2,7 +2,7 @@ const { celebrate, Segments } = require('celebrate');
 const Joi = require('joi');
 const router = require('express').Router();
 
-const { patchUser, getUser } = require('../controllers/user');
+const { patchUser, getUser, signout } = require('../controllers/user');
 
 router.get('/users/me', getUser);
 
@@ -16,5 +16,7 @@ router.patch(
   }),
   patchUser,
 );
+
+router.post('/signout', signout);
 
 module.exports = router;
