@@ -6,7 +6,7 @@ const signinValidation = require('../validations/signin');
 const userRouter = require('./user');
 const movieRouter = require('./movie');
 const { signin, signup } = require('../controllers/user');
-const UnauthorizedError = require('../errors/unauthorized-err');
+const NotFoundError = require('../errors/not-found-err');
 
 router.post('/signin', signinValidation, signin);
 router.post('/signup', signupValidation, signup);
@@ -17,14 +17,7 @@ router.use(userRouter);
 router.use(movieRouter);
 
 router.use('*', (_, __, next) => {
-  next(new UnauthorizedError('Тут ничего нет'));
-});
-
-router.use('*', (err, req, res, next) => {
-  res
-    .status(err.statusCode || 500)
-    .send({ message: err.message || 'Что-то случилось...' });
-  next();
+  next(new NotFoundError('Тут ничего нет'));
 });
 
 module.exports = router;

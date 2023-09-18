@@ -8,6 +8,7 @@ const cors = require('./middlewares/cors');
 const cookieParser = require('./middlewares/cookies');
 const { errorLogger, requestLogger } = require('./middlewares/logger');
 const router = require('./routes');
+const serverError = require('./middlewares/server-error');
 
 const app = express();
 app.use(requestLogger);
@@ -19,5 +20,6 @@ app.use(cookieParser);
 app.use(router);
 app.use(errorLogger);
 app.use(errors());
+app.use(serverError);
 
 module.exports = app;
