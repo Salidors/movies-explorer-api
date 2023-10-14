@@ -1,6 +1,7 @@
 const cors = require('cors');
 
 module.exports = cors({
+  credentials: true,
   origin: [
     'https://api.arcana.nomoredomainsicu.ru',
     'https://arcana.nomoredomainsicu.ru',
