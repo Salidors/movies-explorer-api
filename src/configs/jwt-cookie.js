@@ -3,4 +3,5 @@ module.exports = {
   httpOnly: true,
   secure: true,
   sameSite: 'none',
+  domain: 'localhost',
 };
