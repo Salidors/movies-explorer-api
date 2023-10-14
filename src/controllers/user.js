@@ -28,8 +28,8 @@ const signin = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
         expiresIn: '1w',
       });
-      res.cookie(JWT_COOKIE_NAME, token, jwtCookie);
-      return res.send({ message: 'Пользователь авторизован' });
+
+      return res.cookie(JWT_COOKIE_NAME, token, jwtCookie).send({ message: 'Пользователь авторизован' });
     })
     .catch((e) => {
       const err = new InternalServerError(e.message);
@@ -59,8 +59,8 @@ const signup = (req, res, next) => {
       const token = jwt.sign({ _id: _doc._id }, JWT_SECRET, {
         expiresIn: '1w',
       });
-      res.cookie(JWT_COOKIE_NAME, token, jwtCookie);
-      return res.send({
+
+      return res.cookie(JWT_COOKIE_NAME, token, jwtCookie).send({
         name: _doc.name,
         email: _doc.email,
       });
