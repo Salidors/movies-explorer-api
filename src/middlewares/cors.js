@@ -9,5 +9,5 @@ module.exports = cors({
     'http://localhost:3000',
     'http://localhost:3101',
   ],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
 });
