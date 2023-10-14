@@ -11,16 +11,16 @@ const router = require('./routes');
 const serverError = require('./middlewares/server-error');
 
 const app = express();
+app.use('*', cors);
 app.use(requestLogger);
 app.use(rateLimit);
 app.use(helmet);
-app.use(cors);
+// app.use(cors);
 app.use(express.json());
 app.use(cookieParser);
 app.use(router);
 app.use(errorLogger);
 app.use(errors());
 app.use(serverError);
-app.options('*', cors);
 
 module.exports = app;
