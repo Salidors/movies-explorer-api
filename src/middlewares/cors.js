@@ -6,6 +6,7 @@ module.exports = cors({
     'https://arcana.nomoredomainsicu.ru',
     'http://localhost:3000',
     'http://localhost:3101',
+    'http://localhost:3101/',
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 });
