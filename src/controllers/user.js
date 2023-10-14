@@ -55,10 +55,16 @@ const signup = (req, res, next) => {
       name,
       password: hash,
     }))
-    .then(({ _doc }) => res.send({
-      name: _doc.name,
-      email: _doc.email,
-    }))
+    .then(({ _doc }) => {
+      const token = jwt.sign({ _id: _doc._id }, JWT_SECRET, {
+        expiresIn: '1w',
+      });
+      res.cookie(JWT_COOKIE_NAME, token, jwtCookie);
+      return res.send({
+        name: _doc.name,
+        email: _doc.email,
+      });
+    })
     .catch((e) => {
       let err;
       if (e.name === 'ValidationError') {
