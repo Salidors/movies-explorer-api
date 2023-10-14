@@ -15,6 +15,7 @@ app.use(requestLogger);
 app.use(rateLimit);
 app.use(helmet);
 app.use(cors);
+app.options('*', cors);
 app.use(express.json());
 app.use(cookieParser);
 app.use(router);
