@@ -112,7 +112,7 @@ const signout = (req, res, next) => {
   if (!token) {
     next(new UnauthorizedError('Токен не найден'));
   } else {
-    res.clearCookie(JWT_COOKIE_NAME).send({ message: 'Токен удален' });
+    res.clearCookie(JWT_COOKIE_NAME, { domain: '.arcana.nomoredomainsicu.ru', path: '/' }).send({ message: 'Токен удален' });
   }
 };
 
